@@ -6,6 +6,7 @@ import { Drafty } from 'tinode-sdk'
 import Attachment from './attachment.jsx';
 import LetterTile from './letter-tile.jsx';
 import ReceivedMarker from './received-marker.jsx'
+import { sanitizeImageUrl, sanitizeUrl } from '../lib/utils.js';
 
 export default class ChatMessage extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ export default class ChatMessage extends React.Component {
         e.target.dataset.val === undefined ? 1 : '' + e.target.dataset.val;
     }
     if (e.target.dataset.act == 'url') {
-      data.ref = '' + e.target.dataset.ref;
+      data.ref = sanitizeUrl(e.target.dataset.ref) || 'about:blank';
     }
     const text = e.target.dataset.title || 'unknown';
     this.props.onFormResponse(e.target.dataset.act, text, data);
@@ -97,10 +98,10 @@ export default class ChatMessage extends React.Component {
       }, this);
       content = React.createElement('span', null, Drafty.format(content, draftyFormatter, this));
     } else if (typeof content != 'string') {
-      content = <span><i className="material-icons">error_outline</i> <i>
+      content = <><i className="material-icons">error_outline</i> <i>
         <FormattedMessage id="invalid_content"
           defaultMessage="invalid content" description="Shown when message is unreadable" />
-      </i></span>
+      </i></>
     }
 
     return (
@@ -125,7 +126,7 @@ export default class ChatMessage extends React.Component {
                 received={this.props.received} />
             </div>
             <span className="menuTrigger">
-              <a href="javascript:;" onClick={this.handleContextClick}>
+              <a href="#" onClick={this.handleContextClick}>
                 <i className="material-icons">expand_more</i>
               </a>
             </span>
@@ -163,6 +164,7 @@ function draftyFormatter(style, data, values, key) {
             Math.min(this.props.viewportWidth - REM_SIZE * 4, REM_SIZE * 36), REM_SIZE * 24, false);
           dim = dim || {dstWidth: BROKEN_IMAGE_SIZE, dstHeight: BROKEN_IMAGE_SIZE};
           attr.style = { width: dim.dstWidth + 'px', height: dim.dstHeight + 'px' };
+          attr.src = sanitizeImageUrl(attr.src);
           if (attr.src) {
             attr.onClick = this.handlePreviewImage;
             attr.className += ' image-clickable';

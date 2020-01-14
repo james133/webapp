@@ -1,16 +1,19 @@
 import { PACKAGE_VERSION } from './version.js';
 
 // Name of this application, used in the User-Agent.
-export const APP_NAME = 'TinodeWeb/' + (PACKAGE_VERSION || '0.15');
+export const APP_NAME = 'TinodeWeb/' + (PACKAGE_VERSION || '0.16');
 
 // API key. Use https://github.com/tinode/chat/tree/master/keygen to generate your own
 export const API_KEY = 'AQEAAAABAAD_rAp4DJh05a1HAwFT3A6K';
 
 // The array of possible hosts to connect to.
-export const KNOWN_HOSTS = {hosted: 'api.tinode.co', local: 'localhost:6060'};
+export const KNOWN_HOSTS = {hosted: 'web.tinode.co', local: 'localhost:6060'};
 
 // Default host name and port to connect to.
 export const DEFAULT_HOST = KNOWN_HOSTS.hosted;
+
+// Enable console logging.
+export const LOGGING_ENABLED = true;
 
 // Minimum time between two keypress notifications, milliseconds.
 export const KEYPRESS_DELAY = 3*1000;
@@ -22,8 +25,10 @@ export const READ_DELAY = 1000;
 // The shortest allowed tag length. Matches the value on the server.
 export const MIN_TAG_LENGTH = 4;
 
-// Access mode for subscriptions initiated by the current user.
-export const DEFAULT_ACCESS_MODE = 'JRWPS';
+// Access mode for P2P subscriptions initiated by the current user.
+export const DEFAULT_P2P_ACCESS_MODE = 'JRWPS';
+// Access mode for new group topics created by the current user.
+export const NEW_GRP_ACCESS_MODE = 'JRWPSAO';
 
 // Access mode for no access.
 export const NO_ACCESS_MODE = 'N';
@@ -59,3 +64,19 @@ export const MAX_EXTERN_ATTACHMENT_SIZE = 1 << 23;
 // Maximum allowed linear dimension of an inline image in pixels. You may want
 // to adjust it to 1600 or 2400 for production.
 export const MAX_IMAGE_DIM = 768;
+
+// Maximum number of online users to be shown in a topic title bar. Others will be
+// hidden under "+X more"
+export const MAX_ONLINE_IN_TOPIC = 4;
+
+// Maximum length of user name, topic title, and private comment.
+export const MAX_TITLE_LENGTH = 60;
+
+// Link for "Contact Us".
+export const LINK_CONTACT_US = 'email:info@tinode.co';
+
+// Link to Privacy Policy.
+export const LINK_PRIVACY_POLICY = 'https://tinode.co/privacy.html';
+
+// Link to Terms of Service.
+export const LINK_TERMS_OF_SERVICE = 'https://tinode.co/terms.html';

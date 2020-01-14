@@ -9,11 +9,7 @@ The app is about 200KB minified and gzipped. That includes all dependencies (Rea
 
 Although the app is generally usable, keep in mind that this is work in progress. Some bugs probably exist. The app was tested in the latest Chrome & Firefox only. NPM package is available at https://www.npmjs.com/package/tinode-webapp.
 
-Try possibly newer or older version live at https://api.tinode.co/. For passwords for demo accounts and other instructions [see here](https://github.com/tinode/chat/#demo).
-
-Demo avatar photos are from https://www.pexels.com/ under [CC0 license](https://www.pexels.com/photo-license/).
-
-Background pattern from http://subtlepatterns.com/, commercial and non-commercial use allowed with attribution.
+Try possibly newer or older version live at https://web.tinode.co/. For passwords for demo accounts and other instructions [see here](https://github.com/tinode/chat/#demo).
 
 ## Getting support
 
@@ -23,16 +19,32 @@ Background pattern from http://subtlepatterns.com/, commercial and non-commercia
 
 ## Internationalization
 
-The app is fully internationalized using [React-Intl](https://github.com/yahoo/react-intl). The UI language is selected automatically from the language specified by the browser. A specific language can be forced by adding `hl=XX` parameter to the URL, i.e. https://api.tinode.co/#?hl=ru.
+The app is fully internationalized using [React-Intl](https://github.com/formatjs/react-intl). The UI language is selected automatically from the language specified by the browser. A specific language can be forced by adding `#?hl=XX` parameter to the URL, i.e. https://web.tinode.co/#?hl=ru.
 
-As of the time of this writing there are only two translations. More translations are welcome. Send a pull request with a json file with translated strings. Take a look at [English](/src/i18n/en.json) and [Russian](/src/i18n/ru.json) translations for guidance.
+As of the time of this writing the following translations exist: English, Russian, Simplified Chinese. More translations are welcome. Send a pull request with a json file with translated strings. Take a look at [English](/src/i18n/en.json), [Russian](/src/i18n/ru.json), or [Simplified Chinese](/src/i18n/zh-CN.json) translations for guidance.
 
 
-## Missing functionality
+## Not done yet
 
-* Previews not generated for videos, audio, links or docs.
-* No end-to-end encryption.
+* End-to-End encryption.
 * Emoji support is weak.
+* Mentions, hashtags.
+* Replying or forwarding messages.
+* Previews not generated for videos, audio, links or docs.
+
+## Other
+
+* Demo avatars and some other graphics are from https://www.pexels.com/ under [CC0 license](https://www.pexels.com/photo-license/).
+* Background patterns from http://subtlepatterns.com/, commercial and non-commercial use allowed with attribution.
+
+## Push notifications
+
+If you want to use the app with your own server and want web push notification to work you have to set them up:
+
+* Register at https://firebase.google.com/, set up the project if you have not done so already.
+* Open https://console.firebase.google.com/, navigate to your project the to `Cloud Messaging`.
+* Locate `firebase-init.js` in the root folder of your copy of this web app. Get Sender ID and Web Push certificate from https://console.firebase.google.com/: copy `Sender ID` (Project Settings -> Cloud Messaging, "Sender ID") to `messagingSenderId` field, copy `Web Push certificate` (Project Settings -> Cloud Messaging -> Web configuration -> Web Push certificates) to `messagingVapidKey` field.
+* Copy Google-provided server key to `tinode.conf`, see details [here](https://github.com/tinode/chat/blob/master/docs/faq.md#q-how-to-setup-fcm-push-notifications).
 
 ## Responsive design
 

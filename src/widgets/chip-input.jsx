@@ -9,7 +9,9 @@ export default class ChipInput extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = ChipInput.getDerivedStateFromProps(props);
+    this.state = ChipInput.deriveStateFromProps(props);
+    this.state.input = '';
+    this.state.focused = false;
 
     this.handleTextInput = this.handleTextInput.bind(this);
     this.removeChipAt = this.removeChipAt.bind(this);
@@ -19,27 +21,30 @@ export default class ChipInput extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const state = {
-      placeholder: nextProps.chips ? '' : nextProps.prompt,
-      sortedChips: ChipInput.sortChips(nextProps.chips, nextProps.required),
-      chipIndex: ChipInput.indexChips(nextProps.chips),
-      focused: prevState && prevState.focused
+  static deriveStateFromProps(props) {
+    return {
+      placeholder: props.chips ? '' : props.prompt,
+      sortedChips: ChipInput.sortChips(props.chips, props.staticMembers),
+      chipIndex: ChipInput.indexChips(props.chips)
     };
+  }
 
-    if (!prevState || nextProps.chips.length > prevState.sortedChips.length) {
-      // Chip added: clear input.
-      state.input ='';
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.chips != this.props.chips ||
+      prevProps.staticMembers != this.props.staticMembers ||
+      prevProps.prompt != this.props.prompt) {
+      this.setState(ChipInput.deriveStateFromProps(this.props));
     }
-
-    return state;
+    if (!prevState || this.props.chips.length > prevState.sortedChips.length) {
+      this.setState({input: ''});
+    }
   }
 
   // Map chip index to user name
   static indexChips(chips) {
     const index = {};
     let count = 0;
-    chips.map(function(item) {
+    chips.map((item) => {
       index[item.user] = count;
       count ++;
     });
@@ -50,8 +55,8 @@ export default class ChipInput extends React.Component {
   static sortChips(chips, keep) {
     const required = [];
     const normal = [];
-    chips.map(function(item) {
-      if (item.user === keep) {
+    chips.map((item) => {
+      if (keep && keep.includes(item.user)) {
         required.push(item);
       } else {
         normal.push(item);
@@ -90,8 +95,8 @@ export default class ChipInput extends React.Component {
   handleKeyDown(e) {
     if (e.key === 'Backspace') {
       if (this.state.input.length == 0 && this.state.sortedChips.length > 0) {
-        var at = this.state.sortedChips.length - 1;
-        if (this.state.sortedChips[at].user !== this.props.required) {
+        const at = this.state.sortedChips.length - 1;
+        if (this.state.sortedChips[at].user !== this.props.staticMembers) {
           this.removeChipAt(at);
         }
       }
@@ -109,6 +114,7 @@ export default class ChipInput extends React.Component {
   render() {
     const chips = [];
     let count = 0;
+    const staticMembers = this.props.staticMembers || [];
     this.state.sortedChips.map((item) => {
       chips.push(
         <Chip
@@ -117,7 +123,7 @@ export default class ChipInput extends React.Component {
           title={item.public ? item.public.fn : undefined}
           noAvatar={this.props.avatarDisabled}
           topic={item.user}
-          required={item.user === this.props.required}
+          required={staticMembers.includes(item.user)}
           invalid={item.invalid}
           index={count}
           key={item.user} />

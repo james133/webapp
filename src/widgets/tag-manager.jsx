@@ -17,7 +17,6 @@ export default class TagManager extends React.Component {
       activated: this.props.activated
     };
 
-    this.handleShowTagManager = this.handleShowTagManager.bind(this);
     this.handleTagInput = this.handleTagInput.bind(this);
     this.handleAddTag = this.handleAddTag.bind(this);
     this.handleRemoveTag = this.handleRemoveTag.bind(this);
@@ -30,10 +29,6 @@ export default class TagManager extends React.Component {
       return {tags: nextProps.tags};
     }
     return null;
-  }
-
-  handleShowTagManager() {
-    this.setState({activated: true});
   }
 
   handleTagInput(text) {
@@ -126,23 +121,23 @@ export default class TagManager extends React.Component {
               filterFunc={this.handleTagInput} />
           }</FormattedMessage>
           {this.props.onSubmit || this.props.onCancel ?
-            <div id="tag-manager-buttons" className="panel-form-row">
+            <div id="tag-manager-buttons" className="dialog-buttons panel-form-row">
+              <button className="outline" onClick={this.handleCancel}>
+                <FormattedMessage id="button_cancel" defautMessage="Cancel" description="Rejection button [Cancel]" />
+              </button>
               <button className="blue" onClick={this.handleSubmit}>
                 <FormattedMessage id="button_ok" defautMessage="OK" description="Confirmation button [OK]" />
-              </button>
-              <button className="white" onClick={this.handleCancel}>
-                <FormattedMessage id="button_cancel" defautMessage="Cancel" description="Rejection button [Cancel]" />
               </button>
             </div>
           : null}
         </div>
         :
-        <div>
-          <a href="javascript:;" className="flat-button" onClick={this.handleShowTagManager}>
-            <i className="material-icons">edit</i> <FormattedMessage id="title_manage_tags" defaultMessage="Manage tags"
+        <div className="quoted">
+          <a href="#" className="flat-button" onClick={(e) => {e.preventDefault(); this.setState({activated: true});}}>
+            <i className="material-icons">edit</i> &nbsp;<FormattedMessage id="title_manage_tags" defaultMessage="Manage"
               description="Section title for the list of tags" />
           </a>
-          <span>{tags}</span>
+          <>{tags}</>
         </div>
       }
       </div>

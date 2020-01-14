@@ -1,20 +1,7 @@
 {
   "name": "tinode-webapp",
   "description": "Tinode messenger for the web",
-  "version": "0.15.14",
-  "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
-    "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.5",
-    "babel-plugin-react-intl": "^3.0.1",
-    "browserslist": "^4.4.1",
-    "cssnano": "^4.1.10",
-    "postcss": "^7.0.6",
-    "uglifyjs-webpack-plugin": "^2.1.2",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
-  },
+  "version": "0.16.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/tinode/example-react-js.git"
@@ -22,11 +9,12 @@
   "scripts": {
     "build": "npm run vers && npm run build:prod && npm run build:dev && npm run build:css && npm run build:i18n",
     "build:css": "postcss css/base.css > css/base.min.css",
-    "build:dev": "webpack --mode development --output ./umd/index.dev.js",
-    "build:prod": "webpack --mode production --output ./umd/index.prod.js",
+    "build:dev": "webpack --mode development",
+    "build:prod": "webpack --mode production",
     "build:i18n": "node scripts/flatten-messages.js",
     "vers": "node scripts/gen-version.js"
   },
+  "browserslist": "> 0.5%, not IE 11",
   "files": [
     "src/index.js",
     "src/config.js",
@@ -38,6 +26,8 @@
     "umd/index.prod.js.map",
     "umd/index.dev.js",
     "umd/index.dev.js.map",
+    "umd/tinode.prod.js",
+    "umd/tinode.dev.js",
     "audio/msg.mp3",
     "css/base.css",
     "css/base.min.css",
@@ -49,6 +39,7 @@
     "img/logo192.png",
     "img/badge96.png",
     "img/broken_image.png",
+    "img/og-logo.jpeg",
     "index-dev.html",
     "index.html",
     "manifest.json",
@@ -77,10 +68,24 @@
   "author": "Tinode Authors <info@tinode.co>",
   "license": "Apache-2.0",
   "dependencies": {
-    "firebase": "^5.8.6",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-intl": "^2.8.0",
-    "tinode-sdk": "^0.15.14"
+    "firebase": "^6.4.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-intl": "^3.2.1",
+    "tinode-sdk": "^0.16.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-react-intl": "^4.1.19",
+    "browserslist": "^4.7.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "cssnano": "^4.1.10",
+    "postcss": "^7.0.18",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
   }
 }

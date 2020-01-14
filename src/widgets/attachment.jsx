@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import FileProgress from './file-progress.jsx';
 import { bytesToHumanSize } from '../lib/strformat.js';
+import { isUrlRelative, sanitizeUrl } from '../lib/utils.js';
 
 export default class Attachment extends React.Component {
   constructor(props) {
@@ -53,15 +54,15 @@ export default class Attachment extends React.Component {
     // If the URL is relative use LargeFileHelper to attach authentication
     // credentials to the request.
     let url, helperFunc;
-    if (!this.props.uploader && !this.state.downloader &&
-        !(/^(?:(?:[a-z]+:)?\/\/)/i.test(this.props.downloadUrl))) {
+    if (!this.props.uploader && !this.state.downloader && isUrlRelative(this.props.downloadUrl)) {
       // Relative URL. Use download helper.
-      url = "javascript:;";
+      url = '#';
       helperFunc = (e) => {
+        e.preventDefault();
         this.downloadFile(this.props.downloadUrl, this.props.filename, this.props.mimetype);
       };
     } else {
-      url = this.props.downloadUrl;
+      url = sanitizeUrl(this.props.downloadUrl) || 'about:blank';
       helperFunc = null;
     }
     return (
