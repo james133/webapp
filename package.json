@@ -12,7 +12,8 @@
     "build:dev": "webpack --mode development",
     "build:prod": "webpack --mode production",
     "build:i18n": "node scripts/flatten-messages.js",
-    "vers": "node scripts/gen-version.js"
+    "vers": "node scripts/gen-version.js",
+    "start": "npm run build:dev && http-server -a 0.0.0.0 -p 8000 -o --cors -d false"
   },
   "browserslist": "> 0.5%, not IE 11",
   "files": [
@@ -69,6 +70,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "firebase": "^6.4.2",
+    "http-server": "^0.12.1",
+    "node-nightly": "^1.7.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-intl": "^3.2.1",
@@ -83,9 +86,10 @@
     "browserslist": "^4.7.0",
     "copy-webpack-plugin": "^5.0.4",
     "cssnano": "^4.1.10",
-    "postcss": "^7.0.18",
+    "postcss": "^7.0.26",
+    "postcss-cli": "^7.1.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9"
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   }
 }

@@ -7,7 +7,7 @@ export const APP_NAME = 'TinodeWeb/' + (PACKAGE_VERSION || '0.16');
 export const API_KEY = 'AQEAAAABAAD_rAp4DJh05a1HAwFT3A6K';
 
 // The array of possible hosts to connect to.
-export const KNOWN_HOSTS = {hosted: 'web.tinode.co', local: 'localhost:6060'};
+export const KNOWN_HOSTS = {hosted: '39.105.189.56:6060', local: 'localhost:6060'};
 
 // Default host name and port to connect to.
 export const DEFAULT_HOST = KNOWN_HOSTS.hosted;

@@ -125,7 +125,7 @@ __webpack_require__.r(__webpack_exports__);
 var APP_NAME = 'TinodeWeb/' + (_version_js__WEBPACK_IMPORTED_MODULE_0__["PACKAGE_VERSION"] || '0.16');
 var API_KEY = 'AQEAAAABAAD_rAp4DJh05a1HAwFT3A6K';
 var KNOWN_HOSTS = {
-  hosted: 'web.tinode.co',
+  hosted: '39.105.189.56:6060',
   local: 'localhost:6060'
 };
 var DEFAULT_HOST = KNOWN_HOSTS.hosted;
